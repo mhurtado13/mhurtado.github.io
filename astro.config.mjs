@@ -6,8 +6,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mhurtado13.github.io',
-  base: 'mhurtado.github.io',
+  site: 'https://mhurtado.github.io',
   integrations: [tailwind(), react()],
   vite: {
     resolve: {
