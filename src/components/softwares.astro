@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import LP from "../../public/LP.png";
-import ABM from "../../public/ABM.png";
-import model from "../../public/Exploration.png";
+import CTF from "../../public/CTF.png";
+import multideconv from "../../public/multideconv.png";
+import pipeML from "../../public/pipeML.png";
 
 interface Project {
   title: string;
@@ -12,41 +12,41 @@ interface Project {
   status: string;
 }
 
-const projects: Project[] = [
+const software: Project[] = [
   {
-    title: "LungPredict",
-    image: LP as ImageMetadata,
-    link: "https://github.com/VeraPancaldiLab/LungPredict1_paper",
-    preview: "https://github.com/VeraPancaldiLab/LungPredict1_paper",
-    status: "Published",
+    title: "multideconv",
+    image: multideconv as ImageMetadata,
+    link: "https://github.com/VeraPancaldiLab/multideconv",
+    preview: "https://verapancaldilab.github.io/multideconv/",
+    status: "Released",
   },
   {
-    title: "ABM NLC-CLL",
-    image: ABM as ImageMetadata,
-    link: "https://github.com/mhurtado13/ABM_NLC-CLL",
-    preview: "https://github.com/mhurtado13/ABM_NLC-CLL",
-    status: "On going",
+    title: "pipeML",
+    image: pipeML as ImageMetadata,
+    link: "https://github.com/VeraPancaldiLab/pipeML",
+    preview: "https://verapancaldilab.github.io/pipeML/",
+    status: "Released",
   },
   {
-    title: "NLC-CLL model HPC exploration",
-    image: model as ImageMetadata,
-    link: "https://github.com/mhurtado13/NLC-CLL_HPC_exploration",
-    preview: "https://github.com/mhurtado13/NLC-CLL_HPC_exploration",
-    status: "On going",
+    title: "CellTFusion",
+    image: CTF as ImageMetadata,
+    link: "https://github.com/VeraPancaldiLab/CellTFusion",
+    preview: "https://github.com/VeraPancaldiLab/CellTFusion",
+    status: "On development",
   }
 ];
 ---
 
 <section
-  id="projects"
+  id="softwares"
   class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
 >
   <div class="max-w-5xl mx-auto">
-    <h3 class="text-4xl md:text-5xl font-medium mb-8">Projects</h3>
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">Softwares</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        projects.map((project) => (
+        software.map((project) => (
           <div class="group">
             <a
               href={project.preview}

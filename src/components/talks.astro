@@ -1,0 +1,59 @@
+---
+interface Talk {
+  title: string;
+  event: string;
+  location: string;
+  date: string;
+}
+
+const talks: Talk[] = [
+  {
+    title: "CellTFusion: Transcriptional regulatory networks unravel cell states from immune cell type deconvolution and uncovers cell niches predictive of cancer progression",
+    event: "Journee Bioinfo/Biostat GenoToul",
+    location: "Toulouse, France",
+    date: "07/11/2024",
+  },
+  {
+    title: "Transcriptional regulatory networks unravel cell states from immune cell type deconvolution and uncovers cell niches predictive of cancer progression",
+    event: "EMBO Workshop | Computational models of life: From molecular biology to digital twins",
+    location: "Sant Feliu de Guíxols, Spain.",
+    date: "26/11/2023 - 01/12/2023",
+  },
+  {
+    title: "Transcriptional regulatory networks unravel cell states from immune cell type deconvolution and uncovers cell niches predictive of cancer progression",
+    event: "19th Annual Meeting of the Canceropole GSO",
+    location: "Arcachon, France",
+    date: "22/11/2023 - 24/11/2023",
+  },
+  {
+    title: "Transcriptional regulatory networks unravel cell states from immune cell type deconvolution and uncovers cell niches predictive of cancer progression",
+    event: "Institut Curie | Computational Systems Biology of Cancer 6th edition",
+    location: "Paris, France",
+    date: "25/09/2023 - 29/09/2023",
+  }
+];
+---
+
+<section
+  id="talks"
+  class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
+>
+  <div class="max-w-5xl mx-auto">
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">Talks</h3>
+
+    <ul class="space-y-8">
+      {talks.map((talk) => (
+        <li class="flex flex-col md:flex-row gap-4 border-b border-[var(--white-icon-tr)] pb-4">
+          <div class="flex flex-col justify-between">
+            <div>
+              <h4 class="text-2xl font-semibold">{talk.title}</h4>
+              <p class="text-sm text-[var(--white-icon)]">{talk.event}</p>
+              <p class="text-sm text-[var(--white-icon)]">{talk.location}</p>
+              <p class="text-sm text-[var(--white-icon)]">{talk.date}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

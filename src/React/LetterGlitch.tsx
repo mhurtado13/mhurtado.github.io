@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-const LetterGlitch = ({
+const NucleotideGlitch = ({
   glitchColors = ["#5e4491", "#A476FF", "#241a38"],
   glitchSpeed = 33,
   centerVignette = false,
@@ -15,7 +15,7 @@ const LetterGlitch = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
-  const letters = useRef<
+  const nucleotides = useRef<
     {
       char: string;
       color: string;
@@ -31,71 +31,12 @@ const LetterGlitch = ({
   const charWidth = 10;
   const charHeight = 20;
 
-  const lettersAndSymbols = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-    "!",
-    "@",
-    "#",
-    "$",
-    "&",
-    "*",
-    "(",
-    ")",
-    "-",
-    "_",
-    "+",
-    "=",
-    "/",
-    "[",
-    "]",
-    "{",
-    "}",
-    ";",
-    ":",
-    "<",
-    ">",
-    ",",
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-  ];
+  // Update this array to include the DNA nucleotides only (A, T, C, G)
+  const nucleotidesArray = ["A", "T", "C", "G"];
 
   const getRandomChar = () => {
-    return lettersAndSymbols[
-      Math.floor(Math.random() * lettersAndSymbols.length)
-    ];
+    // Return random nucleotide
+    return nucleotidesArray[Math.floor(Math.random() * nucleotidesArray.length)];
   };
 
   const getRandomColor = () => {
@@ -137,10 +78,10 @@ const LetterGlitch = ({
     return { columns, rows };
   };
 
-  const initializeLetters = (columns: number, rows: number) => {
+  const initializeNucleotides = (columns: number, rows: number) => {
     grid.current = { columns, rows };
-    const totalLetters = columns * rows;
-    letters.current = Array.from({ length: totalLetters }, () => ({
+    const totalNucleotides = columns * rows;
+    nucleotides.current = Array.from({ length: totalNucleotides }, () => ({
       char: getRandomChar(),
       color: getRandomColor(),
       targetColor: getRandomColor(),
@@ -168,61 +109,61 @@ const LetterGlitch = ({
     }
 
     const { columns, rows } = calculateGrid(rect.width, rect.height);
-    initializeLetters(columns, rows);
-    drawLetters();
+    initializeNucleotides(columns, rows);
+    drawNucleotides();
   };
 
-  const drawLetters = () => {
-    if (!context.current || letters.current.length === 0) return;
+  const drawNucleotides = () => {
+    if (!context.current || nucleotides.current.length === 0) return;
     const ctx = context.current;
     const { width, height } = canvasRef.current!.getBoundingClientRect();
     ctx.clearRect(0, 0, width, height);
     ctx.font = `${fontSize}px monospace`;
     ctx.textBaseline = "top";
 
-    letters.current.forEach((letter, index) => {
+    nucleotides.current.forEach((nucleotide, index) => {
       const x = (index % grid.current.columns) * charWidth;
       const y = Math.floor(index / grid.current.columns) * charHeight;
-      ctx.fillStyle = letter.color;
-      ctx.fillText(letter.char, x, y);
+      ctx.fillStyle = nucleotide.color;
+      ctx.fillText(nucleotide.char, x, y);
     });
   };
 
-  const updateLetters = () => {
-    if (!letters.current || letters.current.length === 0) return; // Prevent accessing empty array
+  const updateNucleotides = () => {
+    if (!nucleotides.current || nucleotides.current.length === 0) return;
 
-    const updateCount = Math.max(1, Math.floor(letters.current.length * 0.05));
+    const updateCount = Math.max(1, Math.floor(nucleotides.current.length * 0.05));
 
     for (let i = 0; i < updateCount; i++) {
-      const index = Math.floor(Math.random() * letters.current.length);
-      if (!letters.current[index]) continue; // Skip if index is invalid
+      const index = Math.floor(Math.random() * nucleotides.current.length);
+      if (!nucleotides.current[index]) continue;
 
-      letters.current[index].char = getRandomChar();
-      letters.current[index].targetColor = getRandomColor();
+      nucleotides.current[index].char = getRandomChar();
+      nucleotides.current[index].targetColor = getRandomColor();
 
       if (!smooth) {
-        letters.current[index].color = letters.current[index].targetColor;
-        letters.current[index].colorProgress = 1;
+        nucleotides.current[index].color = nucleotides.current[index].targetColor;
+        nucleotides.current[index].colorProgress = 1;
       } else {
-        letters.current[index].colorProgress = 0;
+        nucleotides.current[index].colorProgress = 0;
       }
     }
   };
 
   const handleSmoothTransitions = () => {
     let needsRedraw = false;
-    letters.current.forEach((letter) => {
-      if (letter.colorProgress < 1) {
-        letter.colorProgress += 0.05;
-        if (letter.colorProgress > 1) letter.colorProgress = 1;
+    nucleotides.current.forEach((nucleotide) => {
+      if (nucleotide.colorProgress < 1) {
+        nucleotide.colorProgress += 0.05;
+        if (nucleotide.colorProgress > 1) nucleotide.colorProgress = 1;
 
-        const startRgb = hexToRgb(letter.color);
-        const endRgb = hexToRgb(letter.targetColor);
+        const startRgb = hexToRgb(nucleotide.color);
+        const endRgb = hexToRgb(nucleotide.targetColor);
         if (startRgb && endRgb) {
-          letter.color = interpolateColor(
+          nucleotide.color = interpolateColor(
             startRgb,
             endRgb,
-            letter.colorProgress,
+            nucleotide.colorProgress,
           );
           needsRedraw = true;
         }
@@ -230,15 +171,15 @@ const LetterGlitch = ({
     });
 
     if (needsRedraw) {
-      drawLetters();
+      drawNucleotides();
     }
   };
 
   const animate = () => {
     const now = Date.now();
     if (now - lastGlitchTime.current >= glitchSpeed) {
-      updateLetters();
-      drawLetters();
+      updateNucleotides();
+      drawNucleotides();
       lastGlitchTime.current = now;
     }
 
@@ -274,7 +215,6 @@ const LetterGlitch = ({
       cancelAnimationFrame(animationRef.current!);
       window.removeEventListener("resize", handleResize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [glitchSpeed, smooth]);
 
   return (
@@ -290,4 +230,4 @@ const LetterGlitch = ({
   );
 };
 
-export default LetterGlitch;
+export default NucleotideGlitch;

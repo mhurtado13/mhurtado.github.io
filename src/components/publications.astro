@@ -1,0 +1,64 @@
+---
+interface Publication {
+  title: string;
+  link: string;
+  preview: string;
+  status: string;
+}
+
+const publications: Publication[] = [
+  {
+    title: "Hurtado, M et al. (2025). multideconv – Integrative pipeline for cell type deconvolution from bulk RNAseq using first and second generation methods.",
+    link: "https://doi.org/10.1101/2025.04.29.651220",
+    preview: "https://github.com/VeraPancaldiLab/multideconv_paper",
+    status: "Published",
+  },
+  {
+    title: "Hurtado, M et al. (2024) Transcriptomics proﬁling of the non-small cell lung cancer microenvironment across disease stages reveals dual immune cell-type behaviors. Front. Immunol. 15:1394965.",
+    link: "https://doi.org/10.3389/fimmu.2024.1394965",
+    preview: "https://github.com/VeraPancaldiLab/LungPredict1_paper",
+    status: "Published",
+  }
+];
+
+---
+
+<section
+  id="publications"
+  class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
+>
+  <div class="max-w-5xl mx-auto">
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">Publications</h3>
+
+    <ul class="space-y-8">
+      {publications.map((pub) => (
+        <li class="flex flex-col md:flex-row gap-4 border-b border-[var(--white-icon-tr)] pb-4">
+          <div class="flex flex-col justify-between">
+            <div>
+              <h4 class="text-2xl font-semibold">{pub.title}</h4>
+              <p class="text-sm text-[var(--white-icon)]">{pub.status}</p>
+            </div>
+            <div class="flex gap-3 mt-2">
+              <a
+                href={pub.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[var(--white-icon)] hover:text-white underline"
+              >
+                Paper
+              </a>
+              <a
+                href={pub.preview}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[var(--white-icon)] hover:text-white underline"
+              >
+                Code
+              </a>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
